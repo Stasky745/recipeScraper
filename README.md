@@ -1,6 +1,6 @@
-# Recipe Scrapper
+# Recipe Scraper
 
-This is a recipe scrapper written in Go that uses [goquery](https://github.com/PuerkitoBio/goquery) to scrap different websites and return the information written in it.
+This is a recipe scraper written in Go that uses [goquery](https://github.com/PuerkitoBio/goquery) to scrap different websites and return the information written in it.
 
 ## Sites
 The sites currently working are:
@@ -14,11 +14,11 @@ This is a work in progress. Some of the websites I plan on including in no parti
 4. [Budget Bytes](https://www.budgetbytes.com/)
 5. [Home Chef](https://www.homechef.com)
 
-I might add a generic scrapper to try and get information from any recipe site, but for now I'll work on these. Feel free to contribute!
+I might add a **generic scraper** to try and get information from any recipe site, but for now I'll work on these. Feel free to contribute!
 
 ## Structs
 ### Recipe
-The scrapper returns a `Recipe` struct in the following form:
+The scraper returns a `Recipe` struct in the following form:
 ```go
 type Recipe struct {
 	// Name of the recipe
@@ -98,3 +98,15 @@ type Nutrition struct {
 ```
 
 ## Want to contribute?
+Inside the [scrape](https://github.com/Stasky745/recipeScraper/tree/master/scrape) folder add a file with the domain of the site you want to scrape.
+
+That file must contain a function like the following:
+
+```go
+func Domain(url string) []objects.Recipe {}
+```
+
+This is where all the code to extract the information from the website must go. Feel free to create any other functions necessary. If a function is not specific to your certain domain, you can add it to the [util](https://github.com/Stasky745/recipeScraper/tree/master/util) directory.
+
+Once done this, add your domain as a `case` in [`scraper.go`](https://github.com/Stasky745/recipeScraper/blob/master/scraper.go) and create a [test](https://github.com/Stasky745/recipeScraper/tree/master/test) for it, including any particular cases that may happen in your website (eg: cases where the url contains more than one recipe). Once done this, adapt [`scraper_test.go`](https://github.com/Stasky745/recipeScraper/tree/master/test).
+
